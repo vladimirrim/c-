@@ -93,13 +93,13 @@ Matrix &Matrix::operator-=(const Matrix &m) {
 }
 
 Matrix &Matrix::operator*=(const Matrix &m) {
-    Matrix tmp(*this);
+    Matrix tmp(_rows, m._cols);
     for (size_t i = 0; i < _rows; i++)
         for (size_t j = 0; j < m._cols; j++) {
-            _data[i][j] = 0;
             for (size_t k = 0; k < _cols; k++)
-                _data[i][j] += tmp.get(i, k) * m.get(k, j);
+                tmp._data[i][j] += _data[i][k] * m.get(k, j);
         }
+    *this = tmp;
     return *this;
 }
 
